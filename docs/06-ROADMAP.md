@@ -55,7 +55,8 @@ Accounts (email, Google), profile with photo upload, local-first stores + offlin
 ## Phase 8: Polish ✅ (mostly done)
 - [x] 3.5 s animated splash, logo/app icon, native tab bar (Liquid Glass on iOS 26), glass UI, skeleton loaders, pull-to-refresh
 - [x] Reminders (silent), settings, account management, password reset by code or link
-- [ ] Android device pass (emulators available: run `npx expo run:android`)
+- [x] Android build + launch verified on an emulator (Pixel, Android dev build)
+- [ ] Full signed-in Android pass on a real device
 - [ ] Accessibility pass with VoiceOver / TalkBack and large text
 
 ## Phase 9: Ship 🟡 (started)
