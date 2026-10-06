@@ -60,5 +60,5 @@ habit,tracker,streak,routine,daily,goals,checklist,reminder,productivity,self ca
 Data is encrypted in transit; users can delete their account and data in the app (Profile → Delete account).
 
 ## Screenshots
-Use `docs/screens/*.png` as a base (iPhone 6.9" needs 1320 × 2868 originals; re-capture from the
-iPhone 16 Pro Max simulator for full resolution).
+Ready to upload: `docs/store/screenshots/01…06.png`, 1320 × 2868 (iPhone 6.9" display; App Store Connect
+scales them down for smaller iPhones). Order: Steady glow → History → Streaks → Create → Light & dark → Everywhere.

@@ -129,6 +129,10 @@ h2 { font-size: clamp(30px, 4vw, 42px); letter-spacing: -1px; line-height: 1.12;
 .shot .frame { border-radius: 38px; padding: 8px; background: #0B0B0E; box-shadow: 0 20px 45px rgba(20,35,80,.22), inset 0 0 0 1.5px rgba(255,255,255,.12); }
 .shot img { border-radius: 31px; }
 .shot p { margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--body); }
+.promo { flex: none; width: 300px; scroll-snap-align: center; border-radius: 30px; overflow: hidden; box-shadow: 0 24px 50px rgba(20,35,80,.22); border: 1px solid var(--glass-line); transition: transform .25s ease; }
+.promo:hover { transform: translateY(-4px); }
+.promo img { width: 100%; }
+@media (max-width: 560px) { .promo { width: 250px; } }
 .toggle { display: inline-flex; padding: 4px; border-radius: 999px; margin-top: 26px; }
 .toggle button { border: 0; background: none; padding: 8px 18px; border-radius: 999px; font: 500 14px 'DM Sans'; color: var(--muted); cursor: pointer; }
 .toggle button.on { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(47,107,255,.3); }
@@ -260,11 +264,7 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; }
   <div class="wrap center reveal">
     <div class="eyebrow">Screens</div>
     <h2>A closer look</h2>
-    <p class="sub">Real screenshots from the app. Swipe through, and switch between light and dark.</p>
-    <div class="toggle glass" role="tablist">
-      <button class="on" data-mode="light" role="tab" aria-selected="true">Light</button>
-      <button data-mode="dark" role="tab" aria-selected="false">Dark</button>
-    </div>
+    <p class="sub">Everything Lumo does, one feature at a time. Swipe through.</p>
   </div>
   <div class="gallery" id="gallery"></div>
 </section>
@@ -322,23 +322,17 @@ footer { padding: 40px 0 56px; color: var(--muted); font-size: 14px; }
 </footer>
 
 <script>
-  const shots = {
-    light: [['home', 'Today'], ['stats', 'Stats'], ['detail', 'Habit detail'], ['habits', 'Your habits'], ['new', 'New habit'], ['profile', 'Profile & settings']],
-    dark: [['home-dark', 'Today'], ['stats-dark', 'Stats'], ['detail-dark', 'Habit detail'], ['login-dark', 'Sign in']],
-  };
-  const gallery = document.getElementById('gallery');
-  function render(mode) {
-    gallery.innerHTML = shots[mode]
-      .map(([file, label]) => `<figure class="shot"><div class="frame"><img src="screens/${file}.png" alt="Lumo ${label} screen (${mode} mode)" loading="lazy"></div><p>${label}</p></figure>`)
-      .join('');
-  }
-  render('light');
-  document.querySelectorAll('.toggle button').forEach((b) =>
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.toggle button').forEach((x) => { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
-      render(b.dataset.mode);
-    }),
-  );
+  const panels = [
+    ['01-steady-glow', 'Small habits. Steady glow. A calm daily checklist for your morning, workload and night.'],
+    ['02-history', 'See every habit glow over time: log from the ring and track 15 weeks of history.'],
+    ['03-streaks', 'Streaks that keep you going: current and best streaks, completion and your best day.'],
+    ['04-create', 'Create a habit in seconds: icon, color, days and a gentle reminder.'],
+    ['05-light-dark', 'Beautiful in light and dark, with frosted glass and Liquid Glass tabs.'],
+    ['06-everywhere', 'Your progress on every device: sign in with Google, sync everywhere, gentle reminders.'],
+  ];
+  document.getElementById('gallery').innerHTML = panels
+    .map(([file, alt]) => `<figure class="promo"><img src="screens/promo-${file}.png" alt="${alt}" loading="lazy"></figure>`)
+    .join('');
   const io = new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 </script>

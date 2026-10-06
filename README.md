@@ -24,13 +24,18 @@ and see your progress on every device. Built with Expo, React Native and Supabas
 
 ## Screenshots
 
-| Today | Stats | Habit detail | New habit |
-|:---:|:---:|:---:|:---:|
-| <img src="docs/screens/home.png" width="200" alt="Home" /> | <img src="docs/screens/stats.png" width="200" alt="Stats" /> | <img src="docs/screens/detail.png" width="200" alt="Habit detail" /> | <img src="docs/screens/new.png" width="200" alt="New habit" /> |
+<p align="center">
+  <img src="docs/screens/promo-01-steady-glow.png" width="260" alt="Small habits. Steady glow." />
+  <img src="docs/screens/promo-02-history.png" width="260" alt="See every habit glow over time" />
+  <img src="docs/screens/promo-03-streaks.png" width="260" alt="Streaks that keep you going" />
+</p>
+<p align="center">
+  <img src="docs/screens/promo-04-create.png" width="260" alt="Create a habit in seconds" />
+  <img src="docs/screens/promo-05-light-dark.png" width="260" alt="Beautiful in light and dark" />
+  <img src="docs/screens/promo-06-everywhere.png" width="260" alt="Your progress, on every device" />
+</p>
 
-| Habits | Profile | Dark mode | Sign in |
-|:---:|:---:|:---:|:---:|
-| <img src="docs/screens/habits.png" width="200" alt="Habits" /> | <img src="docs/screens/profile.png" width="200" alt="Profile" /> | <img src="docs/screens/home-dark.png" width="200" alt="Home in dark mode" /> | <img src="docs/screens/login-dark.png" width="200" alt="Sign in" /> |
+Full-resolution App Store versions (1320 × 2868) live in [`docs/store/screenshots/`](docs/store/screenshots).
 
 ## Features
 
