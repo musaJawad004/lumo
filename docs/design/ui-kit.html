@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumo UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&family=DM+Sans:wght@400;500;600&family=Outfit:wght@400;500;600&family=Figtree:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+:root,[data-theme="light"]{
+  --background:#F2F2F4; --screen:#FAFAFB; --surface:#FFFFFF; --tile:#F5F6F8; --border:#ECEDF0;
+  --primarySoft:var(--softL); --primaryLine:var(--lineL);
+  --text:#1C1C1E; --textBody:#3A3A3C; --textMuted:#8E8E93; --iconMuted:#A1A1A6; --iconLine:#7C7C82;
+  --success:#22C55E; --streak:#FF8A00; --danger:#FF3B30;
+  --glassFill:rgba(255,255,255,.62); --glassBorder:rgba(255,255,255,.8);
+  --shadow:0 4px 12px rgba(0,0,0,.06);
+  --page:#E9E9EC;
+}
+[data-theme="dark"]{
+  --background:#0B0C0F; --screen:#0F1114; --surface:#16181C; --tile:#1C1F24; --border:#25282E;
+  --primarySoft:var(--softD); --primaryLine:var(--lineD);
+  --text:#F5F5F7; --textBody:#D1D1D6; --textMuted:#8E8E93; --iconMuted:#6E6E73; --iconLine:#A1A1A6;
+  --glassFill:rgba(28,31,36,.6); --glassBorder:rgba(255,255,255,.12);
+  --shadow:0 4px 12px rgba(0,0,0,.35);
+  --page:#050608;
+}
+:root{--font:"DM Sans";
+  --primary:#5B5FEF; --primaryDark:#4146D9; --softL:#EEEEFF; --lineL:#D3D4FC; --softD:#1E1F4A; --lineD:#34368A;
+  --hero1:#4F46E5; --hero2:#7C83FD;
+  --heroShadow:0 8px 20px color-mix(in srgb,var(--primary) 28%,transparent);
+}
+.accents{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.accCard{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:16px;cursor:pointer;transition:transform .15s}
+.accCard:hover{transform:translateY(-2px)}
+.accCard.on{border-color:var(--ac);box-shadow:0 0 0 4px var(--acSoft)}
+.accHero{height:84px;border-radius:14px;padding:12px 14px;color:#fff;font-weight:600;font-size:17px;position:relative;overflow:hidden}
+.accHero::after{content:"";position:absolute;right:-20px;top:-30px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.18)}
+.accHero small{display:block;font-weight:400;font-size:12px;opacity:.9;margin-top:2px}
+.accRow{display:flex;gap:8px;align-items:center;margin-top:12px}
+.accRow .b{padding:6px 12px;border-radius:999px;color:#fff;font-size:13px;font-weight:500}
+.accRow .c{padding:3px 9px;border-radius:999px;font-size:12px;font-weight:500;border:1px solid}
+.accRow .r{margin-left:auto;width:28px;height:28px;border-radius:50%}
+.accName{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:15px;font-weight:600}
+.accName span{font-size:12px;color:var(--textMuted);font-weight:400;font-family:ui-monospace,Menlo,monospace}
+.accWhy{font-size:13px;color:var(--textBody);line-height:1.45;margin-top:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+.fonts{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.fontCard{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:20px;cursor:pointer;transition:border-color .2s,transform .15s;position:relative}
+.fontCard:hover{transform:translateY(-2px)}
+.fontCard.on{border-color:var(--primary);box-shadow:0 0 0 4px var(--primarySoft)}
+.fontCard .fn{font-size:12px;font-weight:600;color:var(--textMuted);text-transform:uppercase;letter-spacing:.8px;display:flex;justify-content:space-between;align-items:center}
+.fontCard .big{font-size:30px;font-weight:600;letter-spacing:-.6px;margin:12px 0 4px}
+.fontCard .bd{font-size:15px;color:var(--textMuted);line-height:1.45}
+.fontCard .nums{font-size:22px;font-weight:500;margin-top:10px;color:var(--textBody)}
+.fontCard .why{font-size:13px;color:var(--textBody);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);line-height:1.45}
+.darkStage{background:#050608;border-radius:32px;padding:48px 24px;margin-top:8px}
+.lightStage{background:#E9E9EC;border-radius:32px;padding:48px 24px;margin-top:8px}
+.darkStage .phoneWrap > p{color:#8E8E93}
+.darkStage .phone{box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px #25282E}
+body{font-family:var(--font),-apple-system,system-ui,sans-serif;background:var(--page);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .3s}
+.wrap{max-width:1320px;margin:0 auto;padding:48px 24px 96px}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--hero1),var(--hero2));display:grid;place-items:center;color:#fff;font-size:28px;box-shadow:var(--heroShadow)}
+h1{font-size:34px;font-weight:600;letter-spacing:-.6px}
+.sub{color:var(--textMuted);font-size:15px;margin-top:4px}
+.toggle{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:10px 16px;border-radius:999px;font:500 14px var(--font);cursor:pointer;display:flex;gap:8px;align-items:center}
+h2{font-size:22px;font-weight:600;letter-spacing:-.3px;margin:56px 0 6px}
+h2 + p{color:var(--textMuted);font-size:14px;margin-bottom:20px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px}
+.grid{display:grid;gap:16px}
+.swatches{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.sw{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--surface)}
+.sw .c{height:84px}
+.sw .m{padding:10px 12px}
+.sw b{display:block;font-size:13px;font-weight:600}
+.sw span{font-size:12px;color:var(--textMuted);font-family:ui-monospace,Menlo,monospace}
+.groupLabel{font-size:12px;font-weight:600;color:var(--textMuted);text-transform:uppercase;letter-spacing:.8px;margin:20px 0 10px}
+.groupLabel:first-child{margin-top:0}
+.typeRow{display:grid;grid-template-columns:140px 1fr 200px;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.typeRow:last-child{border:none}
+.typeRow code{font-size:12px;color:var(--primary);font-family:ui-monospace,Menlo,monospace}
+.typeRow small{font-size:12px;color:var(--textMuted);text-align:right}
+.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.tokenRow{display:flex;align-items:center;gap:14px;padding:8px 0}
+.tokenRow small{font-size:12px;color:var(--textMuted);font-family:ui-monospace,Menlo,monospace;min-width:70px}
+.bar{height:14px;background:var(--primary);border-radius:4px}
+.radiusBox{width:72px;height:72px;background:var(--primarySoft);border:1.5px solid var(--primaryLine)}
+.radiusRow{display:flex;gap:20px;flex-wrap:wrap}
+.radiusRow div{text-align:center;font-size:12px;color:var(--textMuted)}
+.radiusRow div p{margin-top:8px}
+.glassStage{border-radius:20px;padding:28px;background:linear-gradient(135deg,var(--hero1),var(--hero2));position:relative;overflow:hidden;display:flex;gap:20px;flex-wrap:wrap;align-items:center;min-height:200px}
+.glassStage::before,.glassStage::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.25)}
+.glassStage::before{width:180px;height:180px;right:-30px;top:-50px}
+.glassStage::after{width:120px;height:120px;left:30%;bottom:-60px;background:rgba(255,138,0,.5)}
+.gDemo{position:relative;z-index:1;color:#fff;font-size:13px;text-align:center}
+.gDemo p{margin-top:10px;opacity:.9}
+.iconGrid{display:flex;flex-wrap:wrap;gap:10px}
+.iconCell{width:84px;padding:14px 4px;border-radius:14px;background:var(--tile);text-align:center;font-size:11px;color:var(--textMuted)}
+.iconCell i{font-size:30px;color:var(--iconLine);display:block;margin-bottom:6px}
+.iconCell.fill i{color:var(--iconMuted)}
+.compRow{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.rules{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.rule{display:flex;gap:12px;padding:16px;border-radius:16px;background:var(--tile);font-size:14px;color:var(--textBody);line-height:1.45}
+.rule i{color:var(--primary);font-size:20px;flex-shrink:0;margin-top:1px}
+
+/* ---------- Components ---------- */
+.btn{border:none;font:500 15px var(--font);padding:12px 20px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.soft{background:var(--primarySoft);color:var(--primary);border:1px solid var(--primaryLine)}
+.btn.glass{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.btn.sm{padding:5px 12px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--primary);background:var(--primarySoft);border:1px solid var(--primaryLine);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.chip.orange{color:var(--streak);background:#FFF3E5;border-color:#FFD9AD}
+[data-theme="dark"] .chip.orange{background:#3A2408;border-color:#6B4310}
+.chip.green{color:#16A34A;background:#EAFBF0;border-color:#BDEFCF}
+[data-theme="dark"] .chip.green{background:#0D2A18;border-color:#1D5A33}
+
+/* ---------- Phones ---------- */
+.phones{display:flex;flex-wrap:wrap;gap:40px;justify-content:center}
+.phoneWrap{text-align:center}
+.phoneWrap > p{margin-top:16px;font-size:14px;font-weight:500;color:var(--textMuted)}
+.phone{width:375px;height:812px;border-radius:56px;background:var(--surface);padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.08),0 0 0 1px var(--border);position:relative}
+.scr{width:100%;height:100%;border-radius:46px;background:var(--screen);overflow:hidden;position:relative}
+.status{height:54px;display:flex;justify-content:space-between;align-items:center;padding:0 30px 0 36px;font-weight:600;font-size:16px;position:relative;z-index:5}
+.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:120px;height:34px;border-radius:20px;background:#000}
+.status .ic{display:flex;gap:6px;font-size:17px}
+.body{position:absolute;inset:54px 0 0 0;overflow-y:auto;padding:8px 16px 140px;scrollbar-width:none}
+.body::-webkit-scrollbar{display:none}
+
+.topbar{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+.roundBtn{width:44px;height:44px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:22px;color:var(--textBody);box-shadow:var(--shadow);position:relative;flex-shrink:0}
+.roundBtn .dot{position:absolute;width:8px;height:8px;background:var(--danger);border-radius:50%;top:11px;right:12px;border:1.5px solid var(--surface)}
+.search{flex:1;height:44px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--textMuted);font-size:15px}
+.search i{font-size:20px}
+
+.hero{height:196px;border-radius:20px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:var(--heroShadow);position:relative;overflow:hidden;padding:22px;color:#fff}
+.hero .deco1{position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.14)}
+.hero .deco2{position:absolute;right:30px;bottom:-70px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.1)}
+.hero .art{position:absolute;right:18px;top:38px;font-size:104px;color:rgba(255,255,255,.92);filter:drop-shadow(0 8px 16px rgba(0,0,0,.15))}
+.hero h3{font-size:30px;font-weight:600;letter-spacing:-.6px;position:relative}
+.hero p{font-size:14px;line-height:1.4;opacity:.92;margin-top:6px;max-width:190px;position:relative}
+.hero .btn{position:absolute;left:22px;bottom:20px}
+.dots{display:flex;gap:5px;justify-content:center;margin:12px 0 18px}
+.dots span{width:7px;height:7px;border-radius:999px;background:var(--primaryLine)}
+.dots span.on{width:24px;background:var(--primary)}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{height:108px;border-radius:18px;background:var(--tile);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative}
+.tile i{font-size:36px;color:var(--iconLine)}
+.tile .l{font-size:15px;color:var(--textBody)}
+.tile .v{font-size:12px;color:var(--textMuted)}
+.tile.done i{color:var(--primary)}
+.tile .check{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;display:grid;place-items:center}
+.tile .mini{position:absolute;left:14px;right:14px;bottom:9px;height:3px;border-radius:3px;background:var(--border);overflow:hidden}
+.tile .mini b{display:block;height:100%;background:var(--primary)}
+
+.secHead{display:flex;justify-content:space-between;align-items:center;margin:24px 0 12px}
+.secHead h4{font-size:17px;font-weight:500;color:var(--textBody)}
+
+.card{background:var(--surface);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.hcRow{display:flex;align-items:center;gap:10px}
+.hcIcon{width:36px;height:36px;border-radius:50%;background:var(--primarySoft);display:grid;place-items:center;color:var(--primary);font-size:19px;flex-shrink:0}
+.hcName{font-size:17px;color:var(--text)}
+.hcRow .spacer{flex:1}
+.checkBtn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--primaryLine);display:grid;place-items:center;color:transparent;font-size:16px}
+.checkBtn.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.card .strong{font-size:15px;font-weight:500;color:var(--textBody);margin-top:12px}
+.card .muted{font-size:15px;line-height:1.4;color:var(--textMuted);margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* glass tab bar */
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:104px;background:var(--glassFill);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);border-top:1px solid var(--glassBorder);display:flex;justify-content:space-around;align-items:flex-start;padding:12px 6px 0;z-index:10}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--textMuted);width:64px}
+.tab i{font-size:26px;color:var(--iconMuted)}
+.tab.active i,.tab.active{color:var(--primary)}
+.homeBtn{width:72px;height:72px;border-radius:50%;margin-top:-30px;background:color-mix(in srgb,var(--primarySoft) 65%,transparent);border:1px solid var(--glassBorder);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:grid;place-items:center;box-shadow:0 6px 20px color-mix(in srgb,var(--primary) 20%,transparent)}
+[data-theme="dark"] .homeBtn{background:rgba(22,35,74,.65)}
+.homeBtn div{width:46px;height:46px;border-radius:15px;background:var(--primary);display:grid;place-items:center;color:#fff;font-size:26px}
+.homeInd{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:5px;background:var(--text);opacity:.85;z-index:11}
+
+/* detail */
+.navRow{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.navRow h5{font-size:17px;font-weight:600}
+.ringWrap{display:grid;place-items:center;margin:8px 0 18px;position:relative}
+.ringWrap .center{position:absolute;text-align:center}
+.ringWrap .center b{font-size:40px;font-weight:600;letter-spacing:-1px;display:block}
+.ringWrap .center span{font-size:14px;color:var(--textMuted)}
+.statsRow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.statBox{background:var(--surface);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:var(--shadow)}
+.statBox i{font-size:22px}
+.statBox b{display:block;font-size:20px;font-weight:600;margin-top:4px}
+.statBox span{font-size:12px;color:var(--textMuted)}
+.heat{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;margin-top:12px}
+.heat span{aspect-ratio:1;border-radius:4px;background:var(--tile)}
+.heatLegend{display:flex;justify-content:space-between;font-size:12px;color:var(--textMuted);margin-top:10px}
+
+/* sheet */
+.dim{position:absolute;inset:0;background:rgba(10,12,20,.28);z-index:12}
+.sheet{position:absolute;left:0;right:0;bottom:0;height:640px;border-radius:28px 28px 46px 46px;background:var(--glassFill);backdrop-filter:blur(40px) saturate(170%);-webkit-backdrop-filter:blur(40px) saturate(170%);border-top:1px solid var(--glassBorder);z-index:13;padding:12px 20px 30px}
+.sheet{background:rgba(255,255,255,.78)}
+[data-theme="dark"] .sheet{background:var(--glassFill)}
+[data-theme]{color:var(--text)}
+.grab{width:40px;height:5px;border-radius:5px;background:var(--iconMuted);opacity:.5;margin:0 auto 14px}
+.sheet h5{font-size:20px;font-weight:600;letter-spacing:-.3px;text-align:center;margin-bottom:18px}
+.field{background:var(--surface);border-radius:14px;padding:14px 16px;font-size:16px;color:var(--text);border:1px solid var(--border);margin-bottom:12px}
+.lbl{font-size:13px;font-weight:500;color:var(--textMuted);margin:14px 0 8px}
+.iconPick{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.iconPick span{aspect-ratio:1;border-radius:14px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:24px;color:var(--iconLine)}
+.iconPick span.on{background:var(--primarySoft);border-color:var(--primary);color:var(--primary)}
+.colorPick{display:flex;gap:12px}
+.colorPick span{width:32px;height:32px;border-radius:50%}
+.colorPick span.on{box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--primary)}
+.seg{display:flex;background:var(--tile);border-radius:12px;padding:3px;border:1px solid var(--border)}
+.seg span{flex:1;text-align:center;font-size:14px;padding:8px 0;border-radius:10px;color:var(--textBody)}
+.seg span.on{background:var(--surface);box-shadow:var(--shadow);font-weight:500;color:var(--text)}
+.aiBtn{margin-top:16px;width:100%;justify-content:center;background:linear-gradient(120deg,var(--primarySoft),#F4EEFF);color:var(--primary);border:1px solid var(--primaryLine)}
+[data-theme="dark"] .aiBtn{background:linear-gradient(120deg,#16234A,#26184A)}
+.wide{width:100%;justify-content:center;margin-top:10px;padding:15px}
+
+/* stats */
+.bars{display:flex;align-items:flex-end;justify-content:space-between;height:150px;margin-top:16px;gap:10px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bars b{width:100%;border-radius:10px;background:var(--primarySoft)}
+.bars b.on{background:var(--primary)}
+.bars span{font-size:12px;color:var(--textMuted)}
+.bigNum{font-size:34px;font-weight:600;letter-spacing:-1px}
+.listRow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.listRow:last-child{border:none;padding-bottom:0}
+.listRow .t{flex:1;font-size:15px;color:var(--textBody)}
+.pbar{width:90px;height:6px;border-radius:6px;background:var(--tile);overflow:hidden}
+.pbar b{display:block;height:100%;background:var(--primary)}
+.listRow small{font-size:13px;color:var(--textMuted);width:34px;text-align:right}
+
+/* coach */
+.msg{max-width:82%;padding:12px 14px;border-radius:18px;font-size:15px;line-height:1.4;margin-bottom:10px}
+.msg.ai{background:var(--surface);box-shadow:var(--shadow);color:var(--textBody);border-bottom-left-radius:6px}
+.msg.me{background:var(--primary);color:#fff;margin-left:auto;border-bottom-right-radius:6px}
+.coachHead{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.aiAvatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--hero1),#8B5CF6);display:grid;place-items:center;color:#fff;font-size:20px}
+.sugg{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.suggCard{background:var(--surface);border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);margin-bottom:8px}
+.suggCard i{font-size:22px;color:var(--primary)}
+.suggCard .t{flex:1;font-size:14px;color:var(--textBody)}
+.suggCard .t small{display:block;color:var(--textMuted);font-size:12px}
+.addMini{width:28px;height:28px;border-radius:50%;background:var(--primarySoft);color:var(--primary);display:grid;place-items:center;font-size:15px}
+.composer{position:absolute;left:12px;right:12px;bottom:118px;height:50px;border-radius:999px;background:var(--glassFill);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glassBorder);box-shadow:var(--shadow);display:flex;align-items:center;padding:0 6px 0 18px;color:var(--textMuted);font-size:15px;z-index:9}
+.composer .send{margin-left:auto;width:38px;height:38px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:18px}
+
+/* settings */
+.group{background:var(--surface);border-radius:18px;box-shadow:var(--shadow);padding:2px 16px;margin-bottom:16px}
+.sRow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);font-size:16px;color:var(--text)}
+.sRow:last-child{border:none}
+.sRow .ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:#fff;font-size:18px}
+.sRow .t{flex:1}
+.sRow .v{color:var(--textMuted);font-size:15px}
+.sRow .chev{color:var(--iconMuted)}
+.switch{width:50px;height:30px;border-radius:999px;background:var(--success);position:relative}
+.switch::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;background:#fff;top:2px;right:2px;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.switch.off{background:var(--border)}
+.switch.off::after{right:auto;left:2px}
+.profile{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.avatarBig{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#D4F25A,#9BE15D);display:grid;place-items:center;font-size:24px;font-weight:600;color:#1C1C1E}
+
+@media (max-width:700px){
+  .typeRow{grid-template-columns:1fr}
+  .typeRow small{text-align:left}
+  .phone{transform:scale(.88);transform-origin:top center;margin-bottom:-96px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand">
+    <div class="logo"><i class="ph-fill ph-flame"></i></div>
+    <div>
+      <h1>Lumo UI Kit</h1>
+      <div class="sub">Minimal + Glass design system · <span class="fontName">DM Sans</span> · Phosphor icons · React Native / Expo</div>
+    </div>
+  </div>
+  <button class="toggle" onclick="toggleTheme()"><i class="ph ph-moon" id="themeIcon"></i><span id="themeLabel">Dark mode</span></button>
+</header>
+
+<!-- ================= COLORS ================= -->
+<h2>Colors</h2>
+<p>The whole look depends on a light gray background, white cards, and one blue accent.</p>
+<div class="panel">
+  <div class="groupLabel">Brand</div>
+  <div class="grid swatches" id="sw-brand"></div>
+  <div class="groupLabel">Backgrounds &amp; Surfaces</div>
+  <div class="grid swatches" id="sw-bg"></div>
+  <div class="groupLabel">Text &amp; Icons</div>
+  <div class="grid swatches" id="sw-text"></div>
+  <div class="groupLabel">Status</div>
+  <div class="grid swatches" id="sw-status"></div>
+  <div class="groupLabel">Hero Gradient</div>
+  <div class="sw" style="max-width:420px"><div class="c" style="background:linear-gradient(120deg,var(--hero1),var(--hero2))"></div><div class="m"><b>heroGradient</b><span id="heroHex"></span></div></div>
+</div>
+
+
+<!-- ================= PRIMARY COLOR ================= -->
+<h2>Pick a Primary Color</h2>
+<p>Click a card to recolor the whole page and every screen. Recommended: <b>Indigo</b>.</p>
+<div class="grid accents" id="accCards"></div>
+
+<!-- ================= FONTS ================= -->
+<h2>Pick a Font</h2>
+<p>Your choice: <b>DM Sans</b>. Click another card to compare.</p>
+<div class="grid fonts" id="fontCards"></div>
+
+<!-- ================= TYPOGRAPHY ================= -->
+<h2>Typography: <span class="fontName">DM Sans</span></h2>
+<p>Max weight is 600, never bold. Use -0.2 to -0.6 letter spacing on large text.</p>
+<div class="panel">
+  <div class="typeRow"><code>display</code><div style="font-size:32px;font-weight:600;letter-spacing:-.6px">Build Your Streak</div><small>32 / SemiBold 600</small></div>
+  <div class="typeRow"><code>h1</code><div style="font-size:24px;font-weight:600;letter-spacing:-.4px">Good morning, Adz</div><small>24 / SemiBold 600</small></div>
+  <div class="typeRow"><code>title</code><div style="font-size:17px;font-weight:500;color:var(--textBody)">Today's Habits</div><small>17 / Medium 500</small></div>
+  <div class="typeRow"><code>name</code><div style="font-size:17px">Meditate 10 min</div><small>17 / Regular 400</small></div>
+  <div class="typeRow"><code>bodyStrong</code><div style="font-size:15px;font-weight:500;color:var(--textBody)">Morning calm before work</div><small>15 / Medium 500</small></div>
+  <div class="typeRow"><code>body</code><div style="font-size:15px;color:var(--textMuted);line-height:21px">Small habits repeated daily become the biggest changes in your life.</div><small>15 / Regular · lh 21 · muted</small></div>
+  <div class="typeRow"><code>label</code><div style="font-size:15px;color:var(--textBody)">Drink Water</div><small>15 / Regular 400</small></div>
+  <div class="typeRow"><code>chip</code><div><span class="chip">Daily</span></div><small>12–13 / Medium 500</small></div>
+  <div class="typeRow"><code>tab</code><div style="font-size:12px;color:var(--textMuted)">Habits · Coach · Stats</div><small>12–13 / Regular 400</small></div>
+</div>
+
+<!-- ================= SPACING / RADIUS ================= -->
+<h2>Spacing, Radius &amp; Shadow</h2>
+<p>Screen padding 16 · tile gap 12 · section gap 24.</p>
+<div class="grid two">
+  <div class="panel">
+    <div class="groupLabel">Spacing</div>
+    <div id="spacing"></div>
+  </div>
+  <div class="panel">
+    <div class="groupLabel">Radius</div>
+    <div class="radiusRow">
+      <div><div class="radiusBox" style="border-radius:12px"></div><p>input · 12–14</p></div>
+      <div><div class="radiusBox" style="border-radius:18px"></div><p>tile/card · 18</p></div>
+      <div><div class="radiusBox" style="border-radius:20px"></div><p>hero · 20</p></div>
+      <div><div class="radiusBox" style="border-radius:28px"></div><p>sheet · 28</p></div>
+      <div><div class="radiusBox" style="border-radius:999px"></div><p>pill · full</p></div>
+    </div>
+    <div class="groupLabel">Shadow</div>
+    <div class="radiusRow">
+      <div><div style="width:110px;height:64px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow)"></div><p>card · y4 r12 6%</p></div>
+      <div><div style="width:110px;height:64px;border-radius:16px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:var(--heroShadow)"></div><p>hero glow · blue 25%</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= GLASS ================= -->
+<h2>Glass</h2>
+<p>Use glass only on floating elements, always give it a 1px light border, and keep it to 2 layers max per screen.</p>
+<div class="glassStage">
+  <div class="gDemo"><button class="btn glass">Start Now</button><p>Hero CTA<br>white 15% · blur 20</p></div>
+  <div class="gDemo"><div class="homeBtn" style="margin:0 auto"><div><i class="ph-fill ph-house"></i></div></div><p>Center button<br>glass ring + solid blue</p></div>
+  <div class="gDemo" style="flex:1;min-width:240px">
+    <div style="height:64px;border-radius:20px;background:rgba(255,255,255,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.8);display:flex;justify-content:space-around;align-items:center;color:#A1A1A6;font-size:24px">
+      <i class="ph-fill ph-book-open"></i><i class="ph-fill ph-chat-circle"></i><i class="ph-fill ph-chart-bar"></i><i class="ph-fill ph-gear-six"></i>
+    </div>
+    <p>Tab bar · blur 40 · white 60% · top border white 80%</p>
+  </div>
+</div>
+
+<!-- ================= ICONS ================= -->
+<h2>Icons: Phosphor</h2>
+<p><b>Light</b> weight for content and tiles (#7C7C82, 36px). <b>Fill</b> for the tab bar (#A1A1A6, 26px). Never mix icon sets.</p>
+<div class="panel">
+  <div class="groupLabel">Light (content)</div>
+  <div class="iconGrid" id="icons-light"></div>
+  <div class="groupLabel">Fill (tab bar)</div>
+  <div class="iconGrid" id="icons-fill"></div>
+</div>
+
+<!-- ================= COMPONENTS ================= -->
+<h2>Components</h2>
+<p>Every screen is built from these, with no one-off styles.</p>
+<div class="panel">
+  <div class="groupLabel">Buttons</div>
+  <div class="compRow">
+    <button class="btn primary">Save Habit</button>
+    <button class="btn primary sm"><i class="ph ph-plus"></i>Add</button>
+    <button class="btn soft">View All</button>
+    <button class="btn soft sm">Following</button>
+    <button class="btn aiBtn" style="width:auto;margin:0"><i class="ph-fill ph-sparkle"></i>Suggest with AI</button>
+  </div>
+  <div class="groupLabel">Chips</div>
+  <div class="compRow">
+    <span class="chip">Daily</span><span class="chip">AI Coach</span>
+    <span class="chip orange"><i class="ph-fill ph-flame"></i>12 days</span>
+    <span class="chip green"><i class="ph-bold ph-check"></i>Done</span>
+  </div>
+  <div class="groupLabel">Search &amp; header buttons</div>
+  <div class="compRow" style="max-width:420px">
+    <div class="roundBtn"><i class="ph-light ph-list"></i></div>
+    <div class="search"><i class="ph-light ph-magnifying-glass"></i>Search habits…</div>
+    <div class="roundBtn"><i class="ph-light ph-bell"></i><span class="dot"></span></div>
+  </div>
+  <div class="groupLabel">Tile &amp; card</div>
+  <div class="compRow" style="align-items:flex-start">
+    <div class="tile" style="width:116px"><i class="ph-light ph-drop"></i><span class="l">Water</span><span class="v">4 / 8</span><span class="mini"><b style="width:50%"></b></span></div>
+    <div class="tile done" style="width:116px"><span class="check"><i class="ph-bold ph-check"></i></span><i class="ph-light ph-person-simple-walk"></i><span class="l">Walk</span><span class="v">Done</span></div>
+    <div class="card" style="width:340px;margin:0">
+      <div class="hcRow"><div class="hcIcon"><i class="ph-light ph-flower-lotus"></i></div><span class="hcName">Meditate</span><span class="chip">Daily</span><span class="spacer"></span><span class="checkBtn on"><i class="ph-bold ph-check"></i></span></div>
+      <div class="strong">10 minutes · Morning</div>
+      <div class="muted">Morning calm before work. Breathe in for four, hold, breathe out slowly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCREENS ================= -->
+<h2>Screens: Light Mode</h2>
+<p>Scroll inside each phone.</p>
+<div class="lightStage" data-theme="light">
+<div class="phones" id="lightPhones">
+
+  <!-- HOME -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body">
+      <div class="topbar">
+        <div class="roundBtn"><i class="ph-light ph-list"></i></div>
+        <div class="search"><i class="ph-light ph-magnifying-glass"></i>Search habits, tips</div>
+        <div class="roundBtn"><i class="ph-light ph-bell"></i><span class="dot"></span></div>
+      </div>
+      <div class="hero">
+        <div class="deco1"></div><div class="deco2"></div>
+        <i class="ph-fill ph-flame art"></i>
+        <h3>Build Your Streak</h3>
+        <p>Small habits, done daily, become big changes.</p>
+        <button class="btn glass">Start Now</button>
+      </div>
+      <div class="dots"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+      <div class="tiles">
+        <div class="tile"><i class="ph-light ph-drop"></i><span class="l">Water</span><span class="v">4 / 8</span><span class="mini"><b style="width:50%"></b></span></div>
+        <div class="tile done"><span class="check"><i class="ph-bold ph-check"></i></span><i class="ph-light ph-person-simple-walk"></i><span class="l">Walk</span><span class="v">Done</span></div>
+        <div class="tile"><i class="ph-light ph-book-open"></i><span class="l">Read</span><span class="v">5 / 20 pg</span><span class="mini"><b style="width:25%"></b></span></div>
+        <div class="tile done"><span class="check"><i class="ph-bold ph-check"></i></span><i class="ph-light ph-flower-lotus"></i><span class="l">Meditate</span><span class="v">Done</span></div>
+        <div class="tile"><i class="ph-light ph-moon-stars"></i><span class="l">Sleep</span><span class="v">8 h goal</span></div>
+        <div class="tile"><i class="ph-light ph-plus-circle"></i><span class="l">Add</span><span class="v">New habit</span></div>
+      </div>
+      <div class="secHead"><h4>Today's Habits</h4><button class="btn soft sm">View All</button></div>
+      <div class="card">
+        <div class="hcRow"><div class="hcIcon"><i class="ph-light ph-flower-lotus"></i></div><span class="hcName">Meditate</span><span class="chip">Daily</span><span class="spacer"></span><span class="checkBtn on"><i class="ph-bold ph-check"></i></span></div>
+        <div class="strong">10 minutes · Morning</div>
+        <div class="muted">Morning calm before work. Breathe in for four, hold, then breathe out slowly.</div>
+      </div>
+      <div class="card">
+        <div class="hcRow"><div class="hcIcon" style="background:#FFF3E5;color:var(--streak)"><i class="ph-light ph-cookie"></i></div><span class="hcName">No Sugar</span><span class="chip orange"><i class="ph-fill ph-flame"></i>12</span><span class="spacer"></span><span class="checkBtn"><i class="ph-bold ph-check"></i></span></div>
+        <div class="strong">All day</div>
+        <div class="muted">Swap sweets for fruit. You're on your longest streak ever, so keep going.</div>
+      </div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><i class="ph-fill ph-book-open"></i>Habits</div>
+      <div class="tab"><i class="ph-fill ph-chat-circle"></i>Coach</div>
+      <div class="homeBtn"><div><i class="ph-fill ph-house"></i></div></div>
+      <div class="tab"><i class="ph-fill ph-chart-bar"></i>Stats</div>
+      <div class="tab"><i class="ph-fill ph-gear-six"></i>Settings</div>
+    </div>
+    <div class="homeInd"></div>
+  </div></div><p>Home</p></div>
+
+  <!-- DETAIL -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body">
+      <div class="navRow"><div class="roundBtn"><i class="ph-light ph-caret-left"></i></div><h5>Drink Water</h5><div class="roundBtn"><i class="ph-light ph-dots-three"></i></div></div>
+      <div class="ringWrap">
+        <svg width="210" height="210" viewBox="0 0 210 210">
+          <circle cx="105" cy="105" r="90" fill="none" stroke="var(--primarySoft)" stroke-width="16"/>
+          <circle cx="105" cy="105" r="90" fill="none" stroke="var(--primary)" stroke-width="16" stroke-linecap="round" stroke-dasharray="565.5" stroke-dashoffset="212" transform="rotate(-90 105 105)"/>
+        </svg>
+        <div class="center"><i class="ph-light ph-drop" style="font-size:28px;color:var(--primary)"></i><b>5 / 8</b><span>glasses today</span></div>
+      </div>
+      <div class="statsRow">
+        <div class="statBox"><i class="ph-fill ph-flame" style="color:var(--streak)"></i><b>12</b><span>Current</span></div>
+        <div class="statBox"><i class="ph-fill ph-trophy" style="color:#EAB308"></i><b>21</b><span>Best</span></div>
+        <div class="statBox"><i class="ph-fill ph-check-circle" style="color:var(--success)"></i><b>86%</b><span>Rate</span></div>
+      </div>
+      <div class="card">
+        <div class="hcRow"><span style="font-size:17px;font-weight:500;color:var(--textBody)">Last 15 weeks</span><span class="spacer"></span><span class="chip">Daily</span></div>
+        <div class="heat"></div>
+        <div class="heatLegend"><span>Less</span><span>More</span></div>
+      </div>
+      <button class="btn primary wide"><i class="ph-bold ph-plus"></i>Log a glass</button>
+    </div>
+    <div class="homeInd"></div>
+  </div></div><p>Habit Detail</p></div>
+
+  <!-- NEW HABIT SHEET -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body" style="overflow:hidden">
+      <div class="topbar"><div class="roundBtn"><i class="ph-light ph-list"></i></div><div class="search"><i class="ph-light ph-magnifying-glass"></i>Search habits, tips</div><div class="roundBtn"><i class="ph-light ph-bell"></i></div></div>
+      <div class="hero"><div class="deco1"></div><div class="deco2"></div><i class="ph-fill ph-flame art"></i><h3>Build Your Streak</h3><p>Small habits, done daily, become big changes.</p></div>
+    </div>
+    <div class="dim"></div>
+    <div class="sheet">
+      <div class="grab"></div>
+      <h5>New Habit</h5>
+      <div class="field">Read before bed</div>
+      <div class="lbl">Icon</div>
+      <div class="iconPick">
+        <span class="on"><i class="ph-light ph-book-open"></i></span><span><i class="ph-light ph-drop"></i></span><span><i class="ph-light ph-barbell"></i></span>
+        <span><i class="ph-light ph-flower-lotus"></i></span><span><i class="ph-light ph-moon-stars"></i></span><span><i class="ph-light ph-pencil-simple"></i></span>
+      </div>
+      <div class="lbl">Color</div>
+      <div class="colorPick"><span class="on" style="background:var(--primary)"></span><span style="background:#22C55E"></span><span style="background:#FF8A00"></span><span style="background:#8B5CF6"></span><span style="background:#EC4899"></span><span style="background:#14B8A6"></span></div>
+      <div class="lbl">Frequency</div>
+      <div class="seg"><span class="on">Daily</span><span>Weekly</span><span>Custom</span></div>
+      <div class="lbl">Goal &amp; reminder</div>
+      <div style="display:flex;gap:10px"><div class="field" style="flex:1;margin:0">20 pages</div><div class="field" style="flex:1;margin:0;display:flex;gap:6px;align-items:center"><i class="ph-light ph-alarm" style="color:var(--iconLine)"></i>21:30</div></div>
+      <button class="btn aiBtn"><i class="ph-fill ph-sparkle"></i>Suggest with AI</button>
+      <button class="btn primary wide">Create Habit</button>
+    </div>
+    <div class="homeInd" style="z-index:14"></div>
+  </div></div><p>New Habit (glass sheet)</p></div>
+
+  <!-- STATS -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body">
+      <div class="navRow"><h5 style="font-size:28px;letter-spacing:-.5px">Stats</h5><div class="seg" style="width:170px"><span class="on">Week</span><span>Month</span></div></div>
+      <div class="card">
+        <span style="font-size:14px;color:var(--textMuted)">Completion this week</span>
+        <div style="display:flex;align-items:baseline;gap:8px"><span class="bigNum">82%</span><span class="chip green">+9%</span></div>
+        <div class="bars"></div>
+      </div>
+      <div class="card" style="background:linear-gradient(120deg,var(--hero1),var(--hero2));color:#fff;box-shadow:var(--heroShadow)">
+        <div class="hcRow"><i class="ph-fill ph-sparkle" style="font-size:20px"></i><b style="font-weight:600">AI Weekly Summary</b></div>
+        <div style="font-size:15px;line-height:1.45;opacity:.95;margin-top:8px">Your best day was Thursday. You never miss Walk, but Read slips on weekends, so try moving it to the morning.</div>
+      </div>
+      <div class="secHead"><h4>By habit</h4></div>
+      <div class="card" style="padding-top:6px;padding-bottom:12px">
+        <div class="listRow"><div class="hcIcon"><i class="ph-light ph-person-simple-walk"></i></div><span class="t">Walk</span><span class="pbar"><b style="width:100%"></b></span><small>100%</small></div>
+        <div class="listRow"><div class="hcIcon"><i class="ph-light ph-flower-lotus"></i></div><span class="t">Meditate</span><span class="pbar"><b style="width:86%"></b></span><small>86%</small></div>
+        <div class="listRow"><div class="hcIcon"><i class="ph-light ph-drop"></i></div><span class="t">Water</span><span class="pbar"><b style="width:71%"></b></span><small>71%</small></div>
+        <div class="listRow"><div class="hcIcon"><i class="ph-light ph-book-open"></i></div><span class="t">Read</span><span class="pbar"><b style="width:57%"></b></span><small>57%</small></div>
+      </div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><i class="ph-fill ph-book-open"></i>Habits</div>
+      <div class="tab"><i class="ph-fill ph-chat-circle"></i>Coach</div>
+      <div class="homeBtn"><div><i class="ph-fill ph-house"></i></div></div>
+      <div class="tab active"><i class="ph-fill ph-chart-bar"></i>Stats</div>
+      <div class="tab"><i class="ph-fill ph-gear-six"></i>Settings</div>
+    </div>
+    <div class="homeInd"></div>
+  </div></div><p>Stats</p></div>
+
+  <!-- COACH -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body" style="padding-bottom:190px">
+      <div class="coachHead">
+        <div class="aiAvatar"><i class="ph-fill ph-sparkle"></i></div>
+        <div><div style="font-size:17px;display:flex;gap:6px;align-items:center">Streak Coach <span class="chip">AI Coach</span></div><div style="font-size:13px;color:var(--textMuted)">Powered by Hugging Face</div></div>
+      </div>
+      <div class="msg ai">Hey Adz! 👋 You're on a 12-day streak. What would you like to work on?</div>
+      <div class="msg me">I want to be healthier but I'm always tired</div>
+      <div class="msg ai">Let's start small. Here are 3 easy habits that help with energy:</div>
+      <div class="suggCard"><i class="ph-light ph-drop"></i><div class="t">Drink water on waking<small>1 glass · Daily · 7:00</small></div><span class="addMini"><i class="ph-bold ph-plus"></i></span></div>
+      <div class="suggCard"><i class="ph-light ph-sun"></i><div class="t">10 min morning walk<small>Daily · 7:30</small></div><span class="addMini"><i class="ph-bold ph-plus"></i></span></div>
+      <div class="suggCard"><i class="ph-light ph-device-mobile-slash"></i><div class="t">No phone after 22:30<small>Daily · Reminder 22:15</small></div><span class="addMini"><i class="ph-bold ph-plus"></i></span></div>
+      <div class="sugg"><span class="chip">Plan my week</span><span class="chip">Why do I skip?</span><span class="chip">Motivate me</span></div>
+    </div>
+    <div class="composer">Ask your coach…<span class="send"><i class="ph-fill ph-paper-plane-tilt"></i></span></div>
+    <div class="tabbar">
+      <div class="tab"><i class="ph-fill ph-book-open"></i>Habits</div>
+      <div class="tab active"><i class="ph-fill ph-chat-circle"></i>Coach</div>
+      <div class="homeBtn"><div><i class="ph-fill ph-house"></i></div></div>
+      <div class="tab"><i class="ph-fill ph-chart-bar"></i>Stats</div>
+      <div class="tab"><i class="ph-fill ph-gear-six"></i>Settings</div>
+    </div>
+    <div class="homeInd"></div>
+  </div></div><p>AI Coach</p></div>
+
+  <!-- SETTINGS -->
+  <div class="phoneWrap"><div class="phone"><div class="scr">
+    <div class="status"><span>9:41</span><div class="island"></div><span class="ic"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-bold ph-wifi-high"></i><i class="ph-fill ph-battery-full"></i></span></div>
+    <div class="body">
+      <h5 style="font-size:28px;font-weight:600;letter-spacing:-.5px;margin-bottom:18px">Settings</h5>
+      <div class="profile"><div class="avatarBig">A</div><div><div style="font-size:18px;font-weight:500">Adz</div><div style="font-size:14px;color:var(--textMuted)">12-day streak · 6 habits</div></div></div>
+      <div class="group">
+        <div class="sRow"><span class="ico" style="background:var(--primary)"><i class="ph-fill ph-paint-brush"></i></span><span class="t">Appearance</span><span class="v">System</span><i class="ph ph-caret-right chev"></i></div>
+        <div class="sRow"><span class="ico" style="background:#FF3B30"><i class="ph-fill ph-bell"></i></span><span class="t">Reminders</span><span class="switch"></span></div>
+        <div class="sRow"><span class="ico" style="background:#FF8A00"><i class="ph-fill ph-vibrate"></i></span><span class="t">Haptics</span><span class="switch"></span></div>
+      </div>
+      <div class="group">
+        <div class="sRow"><span class="ico" style="background:#8B5CF6"><i class="ph-fill ph-sparkle"></i></span><span class="t">AI Coach</span><span class="switch"></span></div>
+        <div class="sRow"><span class="ico" style="background:#14B8A6"><i class="ph-fill ph-calendar-check"></i></span><span class="t">Week starts on</span><span class="v">Monday</span><i class="ph ph-caret-right chev"></i></div>
+      </div>
+      <div class="group">
+        <div class="sRow"><span class="ico" style="background:#22C55E"><i class="ph-fill ph-export"></i></span><span class="t">Export data</span><i class="ph ph-caret-right chev"></i></div>
+        <div class="sRow"><span class="ico" style="background:#8E8E93"><i class="ph-fill ph-info"></i></span><span class="t">About Lumo</span><span class="v">v1.0</span><i class="ph ph-caret-right chev"></i></div>
+      </div>
+    </div>
+    <div class="tabbar">
+      <div class="tab"><i class="ph-fill ph-book-open"></i>Habits</div>
+      <div class="tab"><i class="ph-fill ph-chat-circle"></i>Coach</div>
+      <div class="homeBtn"><div><i class="ph-fill ph-house"></i></div></div>
+      <div class="tab"><i class="ph-fill ph-chart-bar"></i>Stats</div>
+      <div class="tab active"><i class="ph-fill ph-gear-six"></i>Settings</div>
+    </div>
+    <div class="homeInd"></div>
+  </div></div><p>Settings</p></div>
+
+</div>
+
+</div>
+
+<!-- ================= DARK SCREENS ================= -->
+<h2>Screens: Dark Mode</h2>
+<p>Same layout and tokens: near-black background, charcoal cards, the same blue, and darker glass.</p>
+<div class="darkStage" data-theme="dark" id="darkStage"></div>
+
+<!-- ================= DARK COLORS ================= -->
+<h2>Dark Mode Colors</h2>
+<p>Only the surfaces and text change. Primary blue, streak orange and status colors stay the same.</p>
+<div class="panel" data-theme="dark" style="background:#0F1114;border-color:#25282E">
+  <div class="grid swatches" id="sw-dark"></div>
+</div>
+
+<!-- ================= RULES ================= -->
+<h2>Design Rules</h2>
+<p>Check every screen against these before shipping.</p>
+<div class="grid rules">
+  <div class="rule"><i class="ph-fill ph-palette"></i><div>Light gray background with white cards. That contrast is the whole look.</div></div>
+  <div class="rule"><i class="ph-fill ph-drop-half"></i><div>One accent color (blue). Orange only for streak flames.</div></div>
+  <div class="rule"><i class="ph-fill ph-text-aa"></i><div>One font only (DM Sans). Max weight 600. Never 700+.</div></div>
+  <div class="rule"><i class="ph-fill ph-shapes"></i><div>Phosphor only: Light in content, Fill in the tab bar.</div></div>
+  <div class="rule"><i class="ph-fill ph-circles-three"></i><div>Glass only on floating elements, always with a 1px light border, max 2 layers.</div></div>
+  <div class="rule"><i class="ph-fill ph-arrows-out"></i><div>Generous space. If a screen feels busy, remove something.</div></div>
+  <div class="rule"><i class="ph-fill ph-hand-tap"></i><div>Every tap gets haptics and a 0.97 scale press.</div></div>
+  <div class="rule"><i class="ph-fill ph-code"></i><div>No hard-coded values. Everything comes from <code>useTheme()</code> tokens.</div></div>
+</div>
+
+</div>
+<script>
+const ACCENTS=[
+ {n:"Indigo",tag:"Recommended",p:"#5B5FEF",d:"#4146D9",sl:"#EEEEFF",ll:"#D3D4FC",sd:"#1E1F4A",ld:"#34368A",h1:"#4F46E5",h2:"#7C83FD",
+  why:"Premium and calm, and it stands apart from the default iOS blue. It glows nicely under glass, looks great in dark mode, and pairs well with the orange streak flame."},
+ {n:"Ocean Blue",tag:"Original",p:"#2F6BFF",d:"#1E54E6",sl:"#EAF1FF",ll:"#C7DAFF",sd:"#16234A",ld:"#2A3F7A",h1:"#1F5BFF",h2:"#4C8DFF",
+  why:"Trusted and clear, the same as your reference. Safe, but very common, so the app looks like a lot of others."},
+ {n:"Violet",tag:"Bold",p:"#7C5CFF",d:"#6440F5",sl:"#F1EDFF",ll:"#D9CFFF",sd:"#251A4A",ld:"#44308A",h1:"#6D4AFF",h2:"#A48BFF",
+  why:"Creative and energetic. Fits a mindful, wellness feel, and it suits the AI Coach well."},
+ {n:"Emerald",tag:"Growth",p:"#10B981",d:"#059669",sl:"#E7F8F1",ll:"#B5EBD5",sd:"#0B2A20",ld:"#14533C",h1:"#059669",h2:"#34D399",
+  why:"Means progress and health. The downside is that it's close to the 'done' green, so success states need another color."},
+ {n:"Teal",tag:"Fresh",p:"#0EA5A4",d:"#0B8584",sl:"#E6F7F7",ll:"#B3E6E5",sd:"#0A2A2A",ld:"#145757",h1:"#0E9594",h2:"#2DD4BF",
+  why:"Calm and clean, like a health or meditation app. Feels fresh without being loud."}
+];
+let brand=[];
+function setAccent(name){
+  const a=ACCENTS.find(x=>x.n===name),r=document.documentElement.style;
+  r.setProperty("--primary",a.p);r.setProperty("--primaryDark",a.d);r.setProperty("--softL",a.sl);r.setProperty("--lineL",a.ll);
+  r.setProperty("--softD",a.sd);r.setProperty("--lineD",a.ld);r.setProperty("--hero1",a.h1);r.setProperty("--hero2",a.h2);
+  fill("sw-brand",[["primary",a.p],["primaryDark",a.d],["primarySoft",a.sl],["primaryLine",a.ll],["dark · primarySoft",a.sd],["dark · primaryLine",a.ld]]);
+  document.getElementById("heroHex").textContent=a.h1+" → "+a.h2;
+  document.querySelectorAll(".accCard").forEach(c=>c.classList.toggle("on",c.dataset.a===name));
+  if(typeof darkSw!=="undefined"){darkSw[5][1]=a.p;darkSw[6][1]=a.sd;darkSw[7][1]=a.ld;fill("sw-dark",darkSw)}
+}
+const bg=[["background","#F2F2F4"],["screen","#FAFAFB"],["surface","#FFFFFF"],["tile","#F5F6F8"],["border","#ECEDF0"],["dark · background","#0B0C0F"],["dark · surface","#16181C"],["dark · tile","#1C1F24"]];
+const tx=[["text","#1C1C1E"],["textBody","#3A3A3C"],["textMuted","#8E8E93"],["iconLine","#7C7C82"],["iconMuted","#A1A1A6"]];
+const st=[["success","#22C55E"],["streak","#FF8A00"],["danger","#FF3B30"],["ai accent","#8B5CF6"]];
+function fill(id,list){document.getElementById(id).innerHTML=list.map(([n,h])=>`<div class="sw"><div class="c" style="background:${h}"></div><div class="m"><b>${n}</b><span>${h}</span></div></div>`).join("")}
+fill("sw-bg",bg);fill("sw-text",tx);fill("sw-status",st);
+
+document.getElementById("spacing").innerHTML=[4,8,12,16,20,24,32].map(s=>`<div class="tokenRow"><small>${s}px</small><div class="bar" style="width:${s*5}px"></div></div>`).join("");
+
+const light=["drop","person-simple-walk","book-open","flower-lotus","moon-stars","barbell","apple-logo","pencil-simple","sun","heart","bell","magnifying-glass","list","alarm","plus-circle","calendar-blank"];
+const fillI=["house","book-open","chat-circle","chart-bar","gear-six","bell","flame","sparkle"];
+document.getElementById("icons-light").innerHTML=light.map(n=>`<div class="iconCell"><i class="ph-light ph-${n}"></i>${n}</div>`).join("");
+document.getElementById("icons-fill").innerHTML=fillI.map(n=>`<div class="iconCell fill"><i class="ph-fill ph-${n}"></i>${n}</div>`).join("");
+
+document.getElementById("darkStage").appendChild(document.getElementById("lightPhones").cloneNode(true)).removeAttribute("id");
+const op=[0,.25,.5,.75,1];
+document.querySelectorAll(".heat").forEach(heat=>{let seed=7,h="";
+for(let i=0;i<105;i++){seed=(seed*9301+49297)%233280;const r=seed/233280;const lvl=r<.12?0:r<.3?1:r<.5?2:r<.75?3:4;
+  h+=`<span style="${lvl?`background:var(--primary);opacity:${op[lvl]}`:""}"></span>`}
+heat.innerHTML=h});
+
+const days=[["M",70],["T",85],["W",60],["T",100],["F",80],["S",55],["S",75]];
+document.querySelectorAll(".bars").forEach(b=>b.innerHTML=days.map(([d,v],i)=>`<div><b class="${i===3?"on":""}" style="height:${v}%"></b><span>${d}</span></div>`).join(""));
+
+const darkSw=[["background","#0B0C0F"],["screen","#0F1114"],["surface","#16181C"],["tile","#1C1F24"],["border","#25282E"],["primary","#2F6BFF"],["primarySoft","#16234A"],["primaryLine","#2A3F7A"],["text","#F5F5F7"],["textBody","#D1D1D6"],["textMuted","#8E8E93"],["iconLine","#A1A1A6"],["glass","rgba(28,31,36,.6)"],["glassBorder","rgba(255,255,255,.12)"]];
+fill("sw-dark",darkSw);
+document.getElementById("accCards").innerHTML=ACCENTS.map(a=>`<div class="accCard" data-a="${a.n}" onclick="setAccent('${a.n}')" style="--ac:${a.p};--acSoft:${a.sl}">
+  <div class="accHero" style="background:linear-gradient(120deg,${a.h1},${a.h2})">Build Your Streak<small>12-day streak 🔥</small></div>
+  <div class="accRow"><span class="b" style="background:${a.p}">Start</span><span class="c" style="color:${a.p};background:${a.sl};border-color:${a.ll}">Daily</span>
+  <span class="r" style="background:conic-gradient(${a.p} 0 70%,${a.sl} 70% 100%)"></span></div>
+  <div class="accName">${a.n} <span>${a.p}</span></div>
+  <div class="accWhy"><span class="chip" style="color:${a.p};background:${a.sl};border-color:${a.ll};margin-right:4px">${a.tag}</span>${a.why}</div></div>`).join("");
+setAccent("Indigo");
+
+const FONTS=[
+ ["Plus Jakarta Sans","Alternative","Modern and friendly with a premium feel. Round letters suit soft cards and glass. Used by lots of top Dribbble apps."],
+ ["Manrope","Clean tech","Geometric and very tidy. Numbers look great, which is good for stats and streak counts."],
+ ["DM Sans","Your pick","Low contrast and calm. Very readable at small sizes, so labels and chips look clean."],
+ ["Outfit","Playful","Rounder and more fun. Gives a friendly feel, good if the audience is younger."],
+ ["Figtree","Warm","Friendly and clear, a little warmer than Inter while keeping the same clean look."],
+ ["Inter","Original","Neutral, close to the iOS system font. Safe, but looks like every other app."]
+];
+function setFont(name){
+  document.documentElement.style.setProperty("--font",`"${name}"`);
+  document.querySelectorAll(".fontName").forEach(e=>e.textContent=name);
+  document.querySelectorAll(".fontCard").forEach(c=>c.classList.toggle("on",c.dataset.f===name));
+}
+document.getElementById("fontCards").innerHTML=FONTS.map(([f,tag,why])=>`<div class="fontCard" data-f="${f}" onclick="setFont('${f}')" style="font-family:'${f}'">
+  <div class="fn">${f}<span class="chip${tag==="Recommended"?"":""}">${tag}</span></div>
+  <div class="big">Build Your Streak</div>
+  <div class="bd">Small habits, done daily, become big changes.</div>
+  <div class="nums">12 days · 86% · 5/8</div>
+  <div class="why">${why}</div></div>`).join("");
+setFont("DM Sans");
+
+function toggleTheme(){
+  const r=document.documentElement;const dark=r.getAttribute("data-theme")==="dark";
+  r.setAttribute("data-theme",dark?"light":"dark");
+  document.getElementById("themeLabel").textContent=dark?"Dark mode":"Light mode";
+  document.getElementById("themeIcon").className=dark?"ph ph-moon":"ph ph-sun";
+}
+</script>
+</body>
+</html>

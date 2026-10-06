@@ -1,0 +1,118 @@
+LUMO: GOOGLE SIGN-IN SETUP (development)
+========================================
+
+How it works
+------------
+The app button "Continue with Google" opens Google inside a secure in-app browser.
+Supabase handles the Google login and sends the user back to the app at:
+
+    lumo://auth-callback
+
+So the Google keys go into SUPABASE, not into the app. The app's .env only needs
+the Supabase URL + publishable key.
+
+Before you start you need:
+  - Your Supabase project (with the SQL from supabase/migrations already run)
+  - A Google account
+
+
+PART 1: GET YOUR SUPABASE CALLBACK URL
+-------------------------------------
+1. Open https://supabase.com/dashboard → your Lumo project.
+2. Go to: Authentication → Sign In / Providers → Google.
+3. Copy the "Callback URL (for OAuth)". It looks like:
+       https://YOUR-PROJECT-REF.supabase.co/auth/v1/callback
+   Keep this tab open. You'll paste keys here in Part 3.
+
+
+PART 2: CREATE THE GOOGLE CLIENT (Google Cloud Console)
+-------------------------------------------------------
+1. Open https://console.cloud.google.com
+2. Top bar → project picker → "New project"
+       Name: Lumo  → Create  → make sure "Lumo" is selected.
+
+3. Open the Google Auth Platform:
+       https://console.cloud.google.com/auth/overview
+   Click "Get started" (first time only):
+       App name ............ Lumo
+       User support email .. your email
+       Audience ............ External
+       Contact email ....... your email
+       → agree → Create
+
+4. Left menu → "Audience"
+       Publishing status stays "Testing" for development.
+       Under "Test users" → "+ Add users" → add every Google account you'll
+       test with (your own included). Only these can sign in while in Testing.
+
+5. Left menu → "Data Access" → "Add or remove scopes"
+       Tick:  .../auth/userinfo.email
+              .../auth/userinfo.profile
+              openid
+       → Update → Save
+
+6. Left menu → "Clients" → "+ Create client"
+       Application type ........ Web application
+         (Yes, "Web" is correct for mobile here: Supabase is the web server
+          that talks to Google on the app's behalf.)
+       Name ..................... Lumo Supabase
+       Authorized JavaScript origins:
+           https://YOUR-PROJECT-REF.supabase.co
+       Authorized redirect URIs:
+           https://YOUR-PROJECT-REF.supabase.co/auth/v1/callback
+           (paste the Callback URL from Part 1 exactly)
+       → Create
+
+7. A popup shows your keys. Copy both:
+       Client ID ...... 1234567890-abc...apps.googleusercontent.com
+       Client secret .. GOCSPX-...
+   (You can always find them again under Clients → Lumo Supabase.)
+
+
+PART 3: ADD THE KEYS TO SUPABASE
+--------------------------------
+1. Back in Supabase: Authentication → Sign In / Providers → Google.
+2. Turn ON "Enable Sign in with Google".
+3. Paste:
+       Client IDs ...... your Client ID
+       Client Secret ... your Client secret
+4. Leave "Skip nonce checks" OFF. → Save.
+
+
+PART 4: ALLOW THE APP'S REDIRECT
+--------------------------------
+1. Supabase → Authentication → URL Configuration.
+2. Under "Redirect URLs" → "Add URL" → add:
+       lumo://**
+   (This lets Google sign-in, email confirmation and password-reset links
+    return to the app.)
+3. Save.
+
+
+PART 5: TRY IT
+--------------
+1. Make sure .env has your real Supabase URL + publishable key.
+2. Restart the dev server:
+       npx expo start --dev-client --port 8082
+3. Open Lumo → "Continue with Google" → pick a test-user account.
+   You land on Home, signed in. Your Google name and photo fill your profile.
+
+
+TROUBLESHOOTING
+---------------
+"Error 400: redirect_uri_mismatch"
+    The redirect URI in Google (Part 2, step 6) must match Supabase's
+    Callback URL exactly: https, no trailing slash, correct project ref.
+
+"Access blocked: Lumo has not completed the Google verification process"
+    The account isn't a Test user. Add it under Audience → Test users.
+
+"Unsupported provider: provider is not enabled"
+    Google isn't switched on in Supabase (Part 3, step 2).
+
+Browser opens but never returns to the app
+    lumo://** is missing from Supabase Redirect URLs (Part 4).
+
+Going live later
+    Audience → "Publish app", add a privacy policy URL on the Branding page,
+    and (recommended) switch to native Google Sign-In for a one-tap sheet.

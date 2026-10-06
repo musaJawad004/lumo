@@ -1,25 +1,73 @@
 {
   "expo": {
-    "name": "lumo",
+    "name": "Lumo",
     "slug": "lumo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.glixentech.lumo",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#2F6BFF",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.glixentech.lumo",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-image",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-blank.png",
+          "imageWidth": 120,
+          "resizeMode": "contain",
+          "backgroundColor": "#FAFAFB",
+          "dark": {
+            "image": "./assets/splash-blank.png",
+            "backgroundColor": "#0F1114"
+          }
+        }
+      ],
+      "expo-sqlite",
+      "expo-sharing",
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Lumo uses your photos so you can choose a profile picture.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
+      "expo-web-browser"
+    ],
+    "scheme": "lumo",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "description": "Lumo is a minimal habit tracker: plan your morning, workload and night, keep your streak glowing and see your progress on every device.",
+    "githubUrl": "https://github.com/musaJawad004/lumo"
   }
 }
